@@ -1,4 +1,4 @@
-const Setting = () => {
+const Dashboard = () => {
     return (
         <div>
             <p>2번페이지 " Setting ".</p>
@@ -6,4 +6,4 @@ const Setting = () => {
     );
 };
 
-export default Setting;
+export default Dashboard;
