@@ -27,3 +27,9 @@
 3. 채널별 재생된 음악 그래프 표시 및 음악 통계
 4. 유저별 재생목록 리스트 생성기능
 
+
+# 사용언어
+
+> Front = TypeScirpt, Tailwind CSS, etc...
+> Database = supabase
+> Release = Docker [ Private Server ]
