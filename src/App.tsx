@@ -1,40 +1,58 @@
-// App.jsx
+// App.tsx
 import "./App.css";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import Home from "./page/Home";
-import Commands from "./page/Commands";
-import { useState } from "react";
+import { BrowserRouter, Route, Routes, Link, NavLink } from "react-router-dom";
+import React, { useState, useCallback, lazy, Suspense } from "react";
+
+// Lazy Loading 적용
+const Home = lazy(() => import("./page/Home"));
+const Commands = lazy(() => import("./page/Commands"));
+const Dashboard = lazy(() => import("./page/Dashboard"));
+const UptimeKumaStatus = lazy(() => import("./page/UptimeKumaStatus")); // UptimeKumaStatus Lazy Loading
 
 function App() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+    // useCallback으로 toggleMenu 함수 메모이제이션
+    const toggleMenu = useCallback(() => setIsMenuOpen((prev) => !prev), []);
+
+    const styles = {
+        primary: "bg-indigo-600 text-white",
+        secondary: "bg-gray-100 text-gray-700",
+        accent: "text-indigo-400",
+        border: "border-gray-300",
     };
+
+    const menuItems = [
+        { path: "/", label: "홈" },
+        { path: "/commands", label: "명령어" },
+        { path: "/community", label: "커뮤니티" },
+        { path: "/invite", label: "초대하기" },
+        { path: "/dashboard", label: "대시보드" },
+        { path: "/announcements", label: "공지사항" },
+        { path: "/status", label: "서비스 상태" },
+    ];
 
     return (
         <BrowserRouter>
-            <div className="App flex flex-col min-h-screen">
-                <div className="navbar bg-base-100 justify-between">
-                    {/* 홈페이지 제목 */}
-                    <div className="flex-1">
-                        <Link to={"/"}>
-                            <input
-                                type="button"
-                                className="btn btn-ghost text-xl"
-                                value="Sodanen_Bot"
-                            />
-                        </Link>
+            <div className="App flex flex-col min-h-screen bg-gray-50 text-gray-800">
+                {/* Navbar */}
+                <nav
+                    className={`flex justify-between items-center ${styles.primary} py-4 px-6 shadow-md`}
+                >
+                    <div className="text-2xl font-bold">
+                        <Link to="/">Sodanen_Bot</Link>
                     </div>
-
-                    {/* 모바일 햄버거 메뉴 */}
                     <div className="md:hidden">
-                        <button className="btn btn-square btn-ghost" onClick={toggleMenu}>
+                        <button
+                            onClick={toggleMenu}
+                            className="focus:outline-none"
+                        >
                             <svg
-                                xmlns="http://www.w3.org/2000/svg"
+                                className="w-6 h-6"
                                 fill="none"
+                                stroke="currentColor"
                                 viewBox="0 0 24 24"
-                                className="inline-block w-5 h-5 stroke-current"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -45,112 +63,165 @@ function App() {
                             </svg>
                         </button>
                     </div>
-
-                    {/* 네비게이션 바 (데스크톱) */}
-                    <ul className="menu menu-horizontal px-1 mx-auto hidden md:flex">
-                        <li className="mr-4">
-                            <Link to="/commands">명령어</Link>
-                        </li>
-                        <li className="mr-4">
-                            <Link to="/community">커뮤니티</Link>
-                        </li>
-                        <li className="mr-4">
-                            <Link to="/invite">초대하기</Link>
-                        </li>
-                        <li className="mr-4">
-                            <Link to="/dashboard">대시보드</Link>
-                        </li>
-                        <li className="mr-4">
-                            <Link to="/announcements">공지사항</Link>
-                        </li>
-                        <li className="mr-4">
-                            <Link to="/status">서비스 상태</Link>
-                        </li>
+                    <ul className="hidden md:flex space-x-6">
+                        {menuItems.map(({ path, label }) => (
+                            <li key={path}>
+                                <NavLink
+                                    to={path}
+                                    className={({ isActive }) =>
+                                        `hover:${styles.accent} ${
+                                            isActive ? styles.accent : ""
+                                        }`
+                                    }
+                                >
+                                    {label}
+                                </NavLink>
+                            </li>
+                        ))}
                     </ul>
-
-                    {/* 전체 화면 메뉴 (모바일) */}
-                    <div
-                        className={`fixed top-0 left-0 w-full h-full bg-base-100 z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"
-                            }`}
-                    >
-                        {/* 닫기 버튼 */}
-                        <button
-                            className="absolute top-4 right-4 btn btn-square btn-ghost"
-                            onClick={toggleMenu}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                className="inline-block w-6 h-6 stroke-current"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M6 18L18 6M6 6l12 12"
-                                ></path>
-                            </svg>
+                    <div className="relative">
+                        <button className="rounded-full focus:outline-none">
+                            <img
+                                className="h-10 w-10 rounded-full object-cover"
+                                src="https://pbs.twimg.com/profile_images/1734752113190985728/lLY9P2HT_400x400.jpg"
+                                alt="Profile"
+                            />
                         </button>
-
-                        {/* 메뉴 내용 */}
-                        <ul className="menu menu-col h-full flex flex-col justify-center items-center">
-                            <li>
-                                <Link to="/commands" onClick={toggleMenu}>명령어</Link>
-                            </li>
-                            <li>
-                                <Link to="/community" onClick={toggleMenu}>커뮤니티</Link>
-                            </li>
-                            <li>
-                                <Link to="/invite" onClick={toggleMenu}>초대하기</Link>
-                            </li>
-                            <li>
-                                <Link to="/dashboard" onClick={toggleMenu}>대시보드</Link>
-                            </li>
-                            <li>
-                                <Link to="/announcements" onClick={toggleMenu}>공지사항</Link>
-                            </li>
-                            <li>
-                                <Link to="/status" onClick={toggleMenu}>서비스 상태</Link>
-                            </li>
-                        </ul>
                     </div>
+                </nav>
 
-                    {/* 프로필 사진 */}
-                    <div className="flex-none mr-6">
-                        <div className="dropdown dropdown-end">
-                            <button
-                                className="btn btn-ghost btn-circle avatar"
-                                onClick={() => {}}
-                            >
-                                <div className="w-10 rounded-full">
-                                    <img
-                                        alt="Navbar component"
-                                        src="https://pbs.twimg.com/profile_images/1734752113190985728/lLY9P2HT_400x400.jpg"
-                                    />
-                                </div>
-                            </button>
-                            {/* 프로필 사진 드롭다운 메뉴 */}
-                            <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                <li>
-                                    <button className="flex justify-between items-center">
-                                        Profile
-                                        <div className="badge ml-2">New</div>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button>Settings</button>
-                                </li>
-                            </ul>
+                {/* Mobile Menu */}
+                <div
+                    className={`fixed top-0 left-0 w-full h-full ${
+                        styles.secondary
+                    } z-50 transform transition-transform duration-300 ease-in-out ${
+                        isMenuOpen ? "translate-x-0" : "translate-x-full"
+                    }`}
+                >
+                    <button
+                        className="absolute top-4 right-4 focus:outline-none"
+                        onClick={toggleMenu}
+                    >
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M6 18L18 6M6 6l12 12"
+                            ></path>
+                        </svg>
+                    </button>
+                    <ul className="flex flex-col items-center justify-center h-full space-y-8">
+                        {menuItems.map(({ path, label }) => (
+                            <li key={path}>
+                                <Link
+                                    to={path}
+                                    onClick={toggleMenu}
+                                    className={`text-xl ${styles.secondary} hover:${styles.accent}`}
+                                >
+                                    {label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Content */}
+                <main className="flex-1 overflow-auto p-6">
+                    <Suspense fallback={null}>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/commands" element={<Commands />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route
+                                path="/status"
+                                element={<UptimeKumaStatus />}
+                            />{" "}
+                            {/* UptimeKumaStatus Route 추가 */}
+                        </Routes>
+                    </Suspense>
+                </main>
+                <footer className="w-full bg-gray-900 text-gray-300 py-8">
+                    <div className="container mx-auto px-4">
+                        <div className="flex flex-col md:flex-row justify-between items-center">
+                            <section className="flex flex-col items-start mb-6 md:mb-0">
+                                <figure className="text-3xl font-bold mb-3">
+                                    <span className="text-blue-400">
+                                        Sodanen
+                                    </span>
+                                    Bot
+                                </figure>
+                                <p className="text-sm text-gray-500">
+                                    © 2025 All rights reserved.
+                                </p>
+                            </section>
+                            <div className="flex flex-col md:flex-row">
+                                <section className="flex flex-col items-start mb-6 md:mb-0 md:mr-12">
+                                    <h2 className="text-lg font-semibold mb-3 text-white">
+                                        약관
+                                    </h2>
+                                    <ul className="text-sm space-y-2">
+                                        <li>
+                                            <a
+                                                href="/terms-of-service"
+                                                className="hover:text-blue-400 transition-colors duration-200"
+                                            >
+                                                서비스 이용약관
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="/privacy-policy"
+                                                className="hover:text-blue-400 transition-colors duration-200"
+                                            >
+                                                개인정보 처리 방침
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="/copyright"
+                                                className="hover:text-blue-400 transition-colors duration-200"
+                                            >
+                                                저작권
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </section>
+                                <section className="flex flex-col items-start">
+                                    <h2 className="text-lg font-semibold mb-3 text-white">
+                                        지원
+                                    </h2>
+                                    <ul className="text-sm space-y-2">
+                                        <li>
+                                            공식 디스코드:
+                                            <a
+                                                href="https://discord.gg/SdDqbgdm"
+                                                className="text-blue-400 underline hover:text-blue-500 transition-colors duration-200 ml-1"
+                                            >
+                                                https://discord.gg/SdDqbgdm
+                                            </a>
+                                        </li>
+                                        <li>
+                                            이메일 문의:
+                                            <a
+                                                href="mailto:jun.codework@gmail.com"
+                                                className="text-blue-400 underline hover:text-blue-500 transition-colors duration-200 ml-1"
+                                            >
+                                                jun.codework@gmail.com
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="flex-1 overflow-auto">
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/commands" element={<Commands />} /> {/* Route 추가 */}
-                    </Routes>
-                </div>
+                </footer>
             </div>
         </BrowserRouter>
     );

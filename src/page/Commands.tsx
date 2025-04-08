@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 interface Command {
     name: string;
@@ -47,7 +47,7 @@ const Commands: React.FC = () => {
     const categories = ["일반", "관리", "음악", "번역"];
 
     const handleCategoryClick = (category: string) => {
-        setSelectedCategory(category === selectedCategory ? null : category); // 이미 선택된 카테고리를 다시 클릭하면 선택 해제
+        setSelectedCategory(category === selectedCategory ? null : category);
         setSelectedCommand(null);
     };
 
@@ -63,8 +63,39 @@ const Commands: React.FC = () => {
         }));
     };
 
+    const commandInfoRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("animate-slide-up", "opacity-100", "translate-y-0");
+                        observer.unobserve(entry.target); // 한 번 보이면 관찰 중단
+                    } else {
+                        entry.target.classList.remove("animate-slide-up", "opacity-100", "translate-y-0");
+                    }
+                });
+            },
+            {
+                threshold: 0.1, // 10%만 보여도 실행
+            }
+        );
+
+        if (commandInfoRef.current) {
+            commandInfoRef.current.classList.remove("animate-slide-up", "opacity-100", "translate-y-0"); // 초기 상태 설정
+            observer.observe(commandInfoRef.current);
+        }
+
+        return () => {
+            if (commandInfoRef.current) {
+                observer.unobserve(commandInfoRef.current);
+            }
+        };
+    }, [selectedCategory, selectedCommand]);  // selectedCategory 추가
+
     return (
-        <div className="bg-gray-50 min-h-screen py-8">
+        <div className="bg-gray-50 py-8">
             <div className="container mx-auto flex flex-col md:flex-row gap-6">
                 <div className="md:w-1/4 bg-white shadow-lg rounded-2xl p-4">
                     <h2 className="text-lg font-semibold mb-3 text-gray-700">명령어 목록</h2>
@@ -101,7 +132,10 @@ const Commands: React.FC = () => {
                 </div>
 
                 <div className="md:w-3/4 bg-white shadow-lg rounded-2xl p-6">
-                    <div className="transition-opacity duration-300 ease-in-out">
+                    <div
+                        ref={commandInfoRef}
+                        className="transition-opacity duration-500 transform translate-y-5 opacity-0"
+                    >
                         {selectedCommand ? (
                             <div className="rounded-xl p-6">
                                 <h1 className="text-3xl font-bold mb-4 text-blue-700">{selectedCommand.name}</h1>
