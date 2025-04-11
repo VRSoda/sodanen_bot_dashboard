@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import LoggedInDashboard from './LoggedInDashboard'; // LoggedInDashboard 경로 업데이트
+import React, { useRef, useEffect, useState } from "react";
+import LoggedInDashboard from "./LoggedInDashboard"; // LoggedInDashboard 경로 업데이트
 
 const Dashboard: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -53,12 +53,8 @@ const Dashboard: React.FC = () => {
                                 alt="Discord Bot"
                                 className="mx-auto rounded-full mb-4 shadow-md"
                             />
-                            <h1 className="text-3xl font-extrabold text-blue-800 mb-2">
-                                디스코드로 시작하기
-                            </h1>
-                            <p className="text-gray-700 mb-6">
-                                디스코드 계정으로 로그인하여 봇을 사용해 보세요.
-                            </p>
+                            <h1 className="text-3xl font-extrabold text-blue-800 mb-2">디스코드로 시작하기</h1>
+                            <p className="text-gray-700 mb-6">디스코드 계정으로 로그인하여 봇을 사용해 보세요.</p>
                         </div>
                         <button
                             className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -66,9 +62,7 @@ const Dashboard: React.FC = () => {
                         >
                             <i className="fab fa-discord mr-2"></i> 디스코드 로그인
                         </button>
-                        <div className="mt-6 text-sm text-gray-500">
-                            디스코드 계정이 필요합니다.
-                        </div>
+                        <div className="mt-6 text-sm text-gray-500">디스코드 계정이 필요합니다.</div>
                     </div>
                 </div>
             )}
