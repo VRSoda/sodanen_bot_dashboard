@@ -14,7 +14,6 @@ const Announcements = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // 날짜 포맷 함수 (옵션 1: toLocaleTimeString 사용)
     const formatDate = (dateString: string): string => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -58,7 +57,6 @@ const Announcements = () => {
     return (
         <div className="container mx-auto p-6 transform translate-y-5 opacity-0 animate-slide-up bg-[url('./img/bg-pattern.svg')] bg-cover relative animated-background">
             <h1 className="text-4xl font-extrabold text-gray-900 mb-8">공지사항</h1>
-            {/* 공지사항 내용 */}
             {announcements.map((announcement) => (
                 <div key={announcement.id} className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
                     <div className="px-6 py-4">
@@ -70,7 +68,6 @@ const Announcements = () => {
                     </div>
                 </div>
             ))}
-            {/* 추가적인 공지사항 */}
         </div>
     );
 };

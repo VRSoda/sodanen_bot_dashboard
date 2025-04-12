@@ -35,7 +35,6 @@ const LoggedInDashboard: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        // 검색어에 따라 서버 필터링
         const results = servers.filter((server) => server.name.toLowerCase().includes(searchTerm.toLowerCase()));
         setFilteredServers(results);
     }, [searchTerm, servers]);
@@ -50,9 +49,7 @@ const LoggedInDashboard: React.FC = () => {
 
     return (
         <div className="flex flex-col bg-gray-50 w-screen h-full items-center justify-start">
-            {/* 메뉴바 높이 고려해서 padding-top 조정 */}
             <div className="mt-16 w-full max-w-7xl px-6 flex flex-col items-center">
-                {/* 검색창 (중앙 위치) */}
                 <div className="mb-8 flex justify-center w-full">
                     <input
                         type="text"
@@ -63,11 +60,9 @@ const LoggedInDashboard: React.FC = () => {
                     />
                 </div>
 
-                {/* 서버 목록 (카드 형태) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-y-auto w-full">
                     {filteredServers.map((server) => (
                         <div key={server.id} className={`relative rounded-2xl shadow-md overflow-hidden h-32`}>
-                            {/* 카드 배경 이미지 */}
                             <img
                                 src={server.backgroundImage ?? "https://via.placeholder.com/300x80"}
                                 alt={`${server.name} 배경 이미지`}

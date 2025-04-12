@@ -44,19 +44,19 @@ const Commands: React.FC = () => {
             category: "번역",
         },
         {
-            name: "/5", // key 중복 해결
+            name: "/5",
             description: "ㄴㅇㄹㄴㅇㄹ",
             example: "/1",
             category: "번역",
         },
         {
-            name: "/6", // key 중복 해결
+            name: "/6",
             description: "ㄴㅇㄹㄴㅇㄹ",
             example: "/1",
             category: "번역",
         },
         {
-            name: "/7", // key 중복 해결
+            name: "/7",
             description: "ㄴㅇㄹㄴㅇㄹ",
             example: "/1",
             category: "번역",
@@ -86,10 +86,9 @@ const Commands: React.FC = () => {
             }
         );
 
-        const currentRef = commandInfoRef.current; // currentRef 변수에 저장
+        const currentRef = commandInfoRef.current;
 
         if (currentRef) {
-            // 문제의 클래스 제거 로직 수정
             currentRef.classList.remove("animate-slide-up", "opacity-100", "translate-y-0");
             observer.observe(currentRef);
         }

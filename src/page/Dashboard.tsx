@@ -32,9 +32,9 @@ const Dashboard: React.FC = () => {
     }, []);
 
     const handleLogin = () => {
-        // 실제 로그인 로직 (API 호출 등)을 여기에 구현해야 합니다.
-        // 예시: API 호출 성공 후 setIsLoggedIn(true) 호출
-        setIsLoggedIn(true); // 예시로 바로 로그인 상태 변경
+        // 실제 로그인 로직
+        // setIsLoggedIn(true) 호출
+        setIsLoggedIn(true);
     };
 
     return (
@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
                         </div>
                         <button
                             className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            onClick={handleLogin} // 로그인 버튼 클릭 시 handleLogin 함수 호출
+                            onClick={handleLogin}
                         >
                             <i className="fab fa-discord mr-2"></i> 디스코드 로그인
                         </button>
