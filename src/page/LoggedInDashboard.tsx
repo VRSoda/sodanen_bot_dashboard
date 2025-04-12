@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 interface DiscordServer {
     id: string;
     name: string;
-    icon: string | null; // 서버 아이콘 URL 또는 null
-    backgroundImage: string | null; // 배경 이미지 URL
+    icon: string | null;
+    backgroundImage: string | null;
 }
 
 const LoggedInDashboard: React.FC = () => {
@@ -45,7 +45,6 @@ const LoggedInDashboard: React.FC = () => {
     };
 
     const handleJoinServer = (serverId: string) => {
-        // TODO: 서버 입장 로직 구현하기
         alert(`서버 ${serverId}에 입장합니다! (실제로는 구현 필요)`);
     };
 
@@ -70,26 +69,18 @@ const LoggedInDashboard: React.FC = () => {
                         <div key={server.id} className={`relative rounded-2xl shadow-md overflow-hidden h-32`}>
                             {/* 카드 배경 이미지 */}
                             <img
-                                src={server.backgroundImage ?? "https://via.placeholder.com/300x80"} // 배경 이미지 없을 경우 기본 이미지
+                                src={server.backgroundImage ?? "https://via.placeholder.com/300x80"}
                                 alt={`${server.name} 배경 이미지`}
                                 className="absolute inset-0 w-full h-full object-cover opacity-50"
                             />
 
-                            {/* 내용 (아이콘, 이름, 버튼) */}
                             <div className="absolute inset-0 p-4 flex items-center">
-                                {/* 서버 아이콘 (좌측) */}
                                 <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
-                                    <img
-                                        src={server.icon ?? "https://via.placeholder.com/80"} // 아이콘 없을 경우 기본 이미지
-                                        alt={`${server.name} 아이콘`}
-                                        className="w-full h-full object-cover"
-                                    />
+                                    <img src={server.icon ?? "https://via.placeholder.com/80"} alt={`${server.name} 아이콘`} className="w-full h-full object-cover" />
                                 </div>
 
-                                {/* 서버 이름 (아이콘 우측, 왼쪽 정렬) */}
                                 <p className="text-white font-semibold text-lg ml-4 flex-grow text-left">{server.name}</p>
 
-                                {/* "입장하기" 버튼 (우측) */}
                                 <button
                                     onClick={() => handleJoinServer(server.id)}
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"

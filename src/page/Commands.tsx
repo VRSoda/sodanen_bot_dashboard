@@ -44,25 +44,19 @@ const Commands: React.FC = () => {
             category: "번역",
         },
         {
-            name: "/4",
+            name: "/5", // key 중복 해결
             description: "ㄴㅇㄹㄴㅇㄹ",
             example: "/1",
             category: "번역",
         },
         {
-            name: "/4",
+            name: "/6", // key 중복 해결
             description: "ㄴㅇㄹㄴㅇㄹ",
             example: "/1",
             category: "번역",
         },
         {
-            name: "/4",
-            description: "ㄴㅇㄹㄴㅇㄹ",
-            example: "/1",
-            category: "번역",
-        },
-        {
-            name: "/4",
+            name: "/7", // key 중복 해결
             description: "ㄴㅇㄹㄴㅇㄹ",
             example: "/1",
             category: "번역",
@@ -84,8 +78,6 @@ const Commands: React.FC = () => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("animate-slide-up", "opacity-100", "translate-y-0");
                         observer.unobserve(entry.target);
-                    } else {
-                        entry.target.classList.remove("animate-slide-up", "opacity-100", "translate-y-0");
                     }
                 });
             },
@@ -94,14 +86,17 @@ const Commands: React.FC = () => {
             }
         );
 
-        if (commandInfoRef.current) {
-            commandInfoRef.current.classList.remove("animate-slide-up", "opacity-100", "tr anslate-y-0");
-            observer.observe(commandInfoRef.current);
+        const currentRef = commandInfoRef.current; // currentRef 변수에 저장
+
+        if (currentRef) {
+            // 문제의 클래스 제거 로직 수정
+            currentRef.classList.remove("animate-slide-up", "opacity-100", "translate-y-0");
+            observer.observe(currentRef);
         }
 
         return () => {
-            if (commandInfoRef.current) {
-                observer.unobserve(commandInfoRef.current);
+            if (currentRef) {
+                observer.unobserve(currentRef);
             }
         };
     }, [selectedCommand]);

@@ -48,11 +48,7 @@ const Dashboard: React.FC = () => {
                         className="bg-white shadow-xl rounded-3xl p-12 text-center transform -translate-y-10 opacity-0 transition-all duration-700 w-full max-w-md"
                     >
                         <div className="mb-8">
-                            <img
-                                src="https://via.placeholder.com/150/4682B4/FFFFFF?text=Discord+Bot" // 디스코드 봇 이미지
-                                alt="Discord Bot"
-                                className="mx-auto rounded-full mb-4 shadow-md"
-                            />
+                            <img src="../image/Profile_Sodanen.jpg" alt="Discord Bot" className="mx-auto rounded-full mb-4 shadow-md" />
                             <h1 className="text-3xl font-extrabold text-blue-800 mb-2">디스코드로 시작하기</h1>
                             <p className="text-gray-700 mb-6">디스코드 계정으로 로그인하여 봇을 사용해 보세요.</p>
                         </div>
