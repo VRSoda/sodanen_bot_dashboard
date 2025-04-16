@@ -18,7 +18,7 @@
 1. TTS ON / OFF
 2. 입장, 퇴장 TTS소리 ON / OFF
 3. 입장, 퇴장시 불리는 소리 변경기능,
-4. amazon polly외 개인별 사운드 변경 - 미구현
+4. amazon polly외 개인별 사운드 변경 - 아마도 네이버..? 흠
 5. 지정된 채널에서 입력시, 자동입장기능 ON / OFF
 
 ### Music
