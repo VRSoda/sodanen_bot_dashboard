@@ -18,7 +18,7 @@ services:
         networks:
             - sodanen_network
 
-    # 선택사항: phpMyAdmin (데이터베이스 관리용)
+    # phpMyAdmin (데이터베이스 관리용)
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:latest
         container_name: sodanen_bot_phpmyadmin

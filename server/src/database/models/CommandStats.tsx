@@ -36,8 +36,6 @@ class CommandStats extends Model<CommandStatsAttributes, CommandStatsCreationAtt
     public averageExecutionTime!: number;
     public lastChannelId!: string | null;
     public lastErrorMessage!: string | null;
-
-    // 타임스탬프
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }

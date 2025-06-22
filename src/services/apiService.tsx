@@ -27,7 +27,6 @@ export interface User {
 export async function loginWithCode(code: string) {
     try {
         const response = await apiClient.post("/auth/login", { code });
-        // ❗ 여기는 '/auth/login' 만 추가! (앞에 /api 붙이지 말기)
         return { success: true, data: response.data };
     } catch (error: any) {
         console.error("loginWithCode error:", error.message || error);

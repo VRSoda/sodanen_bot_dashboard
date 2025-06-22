@@ -121,7 +121,7 @@ const Home: React.FC = () => {
                                 mx: "auto",
                             }}
                         >
-                            Discord 서버를 위한 심플하고 강력한 다목적 봇
+                            Discord 서버를 위한 봇
                         </Typography>
                         {!isAuthenticated ? (
                             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="center" alignItems="center">

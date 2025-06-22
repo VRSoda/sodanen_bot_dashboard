@@ -64,13 +64,11 @@ const UptimeKumaStatus: React.FC = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // 실제 서비스 상태 데이터 가져오기
+    // 서비스 상태 데이터 가져오기
     useEffect(() => {
         const fetchServiceStatus = async () => {
             try {
-                setLoading(true);
-
-                // 실제 서비스 상태 API 호출
+                setLoading(true)서비스 상태 API 호출
                 const response = await apiClient.get("/api/services/status");
                 setServices(response.data);
 
@@ -287,7 +285,7 @@ const UptimeKumaStatus: React.FC = () => {
                     {/* 알림 메시지 */}
                     <Box sx={{ mt: 4 }}>
                         <Alert severity="info" sx={{ borderRadius: 2 }}>
-                            <Typography variant="body2">이 페이지는 5분마다 자동으로 업데이트됩니다. 문제가 지속되거나 추가 지원이 필요한 경우 고객 지원팀에 문의하세요.</Typography>
+                            <Typography variant="body2">이 페이지는 5분마다 자동으로 업데이트됩니다. 문제가 지속되거나 추가 지원이 필요한 경우 문의하세요.</Typography>
                         </Alert>
                     </Box>
                 </Box>

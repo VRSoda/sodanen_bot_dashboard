@@ -3,13 +3,7 @@ import { Box, Container, Typography, Grid, Card, CardContent, Avatar, Button, Pa
 import { useParams, useNavigate } from "react-router-dom";
 import { useSocket } from "../contexts/SocketContext";
 import { useAuth } from "../contexts/AuthContext";
-import StatCard from "../components/StatCard";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import TerminalIcon from "@mui/icons-material/Terminal";
-import PeopleIcon from "@mui/icons-material/People";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import SettingsIcon from "@mui/icons-material/Settings";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import apiClient from "../services/apiService";
 
 interface GuildStats {
@@ -48,7 +42,7 @@ const GuildDashboard: React.FC = () => {
                 throw new Error("서버 ID가 없습니다.");
             }
 
-            // apiClient를 사용하여 실제 서버 통계 API 호출
+            // apiClient를 사용하여 서버 통계 API 호출
             const response = await apiClient.get(`/api/stats/guild/${guildId}`);
             const data = response.data;
 
@@ -81,7 +75,7 @@ const GuildDashboard: React.FC = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    height: "calc(100vh - 200px)", // Adjust height to fit within layout
+                    height: "calc(100vh - 200px)",
                     background: "transparent",
                 }}
             >

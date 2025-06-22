@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Paper, Grid, Card, CardContent, Chip, LinearProgress, CircularProgress } from "@mui/material";
+import { Box, Typography, Paper, Grid, Chip, CircularProgress } from "@mui/material";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useSocket } from "../contexts/SocketContext";
 import { useParams } from "react-router-dom";

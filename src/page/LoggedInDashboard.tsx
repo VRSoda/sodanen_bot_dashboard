@@ -21,7 +21,6 @@ interface LoggedInDashboardProps {
     userData: UserData;
 }
 
-// 스타일드 컴포넌트
 const ServerCard = styled(Card)(({ theme }) => ({
     height: "100%",
     transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -78,7 +77,7 @@ const LoggedInDashboard: React.FC<LoggedInDashboardProps> = ({ userData: _ }) =>
         try {
             setIsLoading(true);
 
-            // 실제 사용자 서버 데이터 가져오기
+            // 사용자 서버 데이터 가져오기
             const userServersResponse = await apiClient.get("/api/user/guilds");
             const userServers = userServersResponse.data;
 

@@ -30,12 +30,10 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public recentMessages!: string | null;
     public lastActive!: Date | null;
     public isActive!: boolean;
-
-    // 타임스탬프
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    // 연관관계 메서드들은 여기에 추가
+    // 연관관계 메서드
     public async updateLastActive(): Promise<void> {
         this.lastActive = new Date();
         await this.save();

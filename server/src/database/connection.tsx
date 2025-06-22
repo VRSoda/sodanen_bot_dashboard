@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-// MariaDB 연결 설정 (기존 봇과 동일한 데이터베이스 사용)
+// MariaDB 연결 설정
 export const sequelize = new Sequelize({
     database: process.env.DB_NAME || "sodanen_bot",
     username: process.env.DB_USER || "root",
@@ -46,22 +46,9 @@ export const initializeDatabase = async (): Promise<boolean> => {
         }
 
         try {
-            // 외래 키 제약 조건 비활성화 (테이블 재생성 오류 방지)
-            // await sequelize.query("SET FOREIGN_KEY_CHECKS = 0;");
-
-            // 데이터베이스 스키마 동기화 (봇이 테이블을 관리하므로 주석 처리)
-            // const syncOptions = {
-            //     alter: process.env.NODE_ENV === "production",
-            //     force: process.env.NODE_ENV !== "production",
-            // };
-            // await sequelize.sync(syncOptions);
-            // console.log(`✅ 데이터베이스 스키마가 성공적으로 동기화되었습니다. (Options: ${JSON.stringify(syncOptions)})`);
-
             console.log("✅ 데이터베이스가 초기화되었습니다.");
             return true;
         } finally {
-            // 외래 키 제약 조건 다시 활성화
-            // await sequelize.query("SET FOREIGN_KEY_CHECKS = 1;");
         }
     } catch (error) {
         console.error("❌ 데이터베이스 초기화 실패:", error);

@@ -3,7 +3,6 @@
     line-height: 1.5;
     font-weight: 400;
 
-    /* 하늘색 테마 색상 팔레트 */
     --sky-primary: #87ceeb;
     --sky-primary-light: #b0e0e6;
     --sky-primary-dark: #4682b4;
@@ -46,7 +45,6 @@ body {
     min-height: 100vh;
 }
 
-/* 하늘색 테마 스크롤바 */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -64,7 +62,6 @@ body {
     background: var(--sky-primary-dark);
 }
 
-/* Animation classes */
 .fade-in {
     animation: fadeIn 0.5s ease-in-out;
 }
@@ -93,7 +90,6 @@ body {
     }
 }
 
-/* Card hover effects */
 .hover-lift {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -120,7 +116,6 @@ body {
     color: #fc8181;
 }
 
-/* Custom loading spinner */
 .loading-spinner {
     border: 3px solid rgba(135, 206, 235, 0.3);
     border-radius: 50%;
@@ -140,7 +135,6 @@ body {
     }
 }
 
-/* Utility classes */
 .text-gradient {
     background: var(--sky-gradient);
     -webkit-background-clip: text;
@@ -155,7 +149,6 @@ body {
     box-shadow: 0 4px 6px var(--sky-shadow);
 }
 
-/* 반응형 유틸리티 클래스 */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -174,7 +167,6 @@ body {
     }
 }
 
-/* 하늘색 버튼 스타일 */
 .sky-button {
     background: var(--sky-gradient);
     color: white;
@@ -196,7 +188,6 @@ body {
     transform: translateY(0);
 }
 
-/* 하늘색 카드 스타일 */
 .sky-card {
     background: var(--sky-surface);
     border-radius: 12px;
@@ -212,7 +203,6 @@ body {
     box-shadow: 0 8px 25px var(--sky-shadow);
 }
 
-/* 전역 텍스트 색상 강제 적용 */
 p,
 span,
 div,
@@ -225,7 +215,6 @@ h6 {
     color: var(--sky-text-primary) !important;
 }
 
-/* Material-UI 텍스트 색상 오버라이드 */
 .MuiTypography-root {
     color: var(--sky-text-primary) !important;
 }

@@ -13,15 +13,7 @@
         "server:start": "node dist/server.js",
         "build": "npm run client:build && npm run server:build",
         "start": "npm run server:start",
-        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "deploy": "./deploy.sh",
-        "pm2:start": "pm2 start ecosystem.config.js",
-        "pm2:reload": "pm2 reload ecosystem.config.js",
-        "pm2:stop": "pm2 stop ecosystem.config.js",
-        "pm2:delete": "pm2 delete ecosystem.config.js",
-        "docker:build": "docker-compose -f docker-compose.prod.yml build",
-        "docker:up": "docker-compose -f docker-compose.prod.yml up -d",
-        "docker:down": "docker-compose -f docker-compose.prod.yml down"
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
     },
     "dependencies": {
         "@emotion/react": "^11.11.1",
@@ -32,7 +24,6 @@
         "cors": "^2.8.5",
         "discord.js": "^14.20.0",
         "dotenv": "^16.5.0",
-        "ejs": "^3.1.10",
         "express": "^4.18.2",
         "express-session": "^1.17.3",
         "i18next": "^25.2.1",
@@ -65,9 +56,7 @@
         "eslint": "^8.55.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.5",
-        "eslint-plugin-sonarjs": "^3.0.3",
         "nodemon": "^3.0.2",
-        "ts-node": "^10.9.2",
         "tsx": "^4.20.3",
         "typescript": "^5.2.2",
         "vite": "^5.0.8"

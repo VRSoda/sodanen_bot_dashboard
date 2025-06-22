@@ -26,21 +26,14 @@ export interface DiscordServer {
     approximate_member_count?: number;
 }
 
-/**
- * Discord 로그인 URL 생성
- */
+// Discord 로그인 URL 생성
 export function getDiscordAuthUrl(): string {
     const scope = "identify guilds";
-    const authUrl = `${DISCORD_API_URL}/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(
-        REDIRECT_URI
-    )}&response_type=code&scope=${encodeURIComponent(scope)}`;
+    const authUrl = `${DISCORD_API_URL}/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=${encodeURIComponent(scope)}`;
     return authUrl;
 }
 
-/**
- * 코드를 토큰으로 교환
- * 참고: 실제 구현에서는 보안을 위해 백엔드에서 처리하는 것이 좋음
- */
+// 코드를 토큰으로 교환
 export async function exchangeCodeForToken(code: string): Promise<any> {
     try {
         const body = new URLSearchParams({
@@ -71,9 +64,7 @@ export async function exchangeCodeForToken(code: string): Promise<any> {
     }
 }
 
-/**
- * Discord 사용자 정보 가져오기
- */
+// Discord 사용자 정보 가져오기
 export async function fetchDiscordUser(token: string): Promise<DiscordUser> {
     try {
         const response = await fetch(`${DISCORD_API_URL}/users/@me`, {
@@ -100,9 +91,7 @@ export async function fetchDiscordUser(token: string): Promise<DiscordUser> {
     }
 }
 
-/**
- * Discord 서버 목록 가져오기
- */
+// Discord 서버 목록 가져오기
 export async function fetchDiscordServers(token: string): Promise<DiscordServer[]> {
     try {
         const response = await fetch(`${DISCORD_API_URL}/users/@me/guilds`, {
@@ -122,9 +111,7 @@ export async function fetchDiscordServers(token: string): Promise<DiscordServer[
     }
 }
 
-/**
- * 토큰의 유효성 검사
- */
+// 토큰의 유효성 검사
 export async function validateToken(token: string): Promise<boolean> {
     try {
         const response = await fetch(`${DISCORD_API_URL}/users/@me`, {
@@ -140,27 +127,20 @@ export async function validateToken(token: string): Promise<boolean> {
     }
 }
 
-/**
- * Discord에서 로그아웃
- * 참고: 토큰을 무효화하려면 백엔드 구현이 필요
- */
+// Discord에서 로그아웃
 export function logoutDiscord(): void {
     localStorage.removeItem("discord_token");
     localStorage.removeItem("discord_user");
-    // 추가 정리 작업이 필요한 경우 여기에 구현
+    // 추가 정리 작업이 필요한 경우..
 }
 
-/**
- * 서버 아이콘 URL 생성
- */
+// 서버 아이콘 URL 생성
 export function getServerIconUrl(server: DiscordServer): string | null {
     if (!server.icon) return null;
     return `https://cdn.discordapp.com/icons/${server.id}/${server.icon}.png`;
 }
 
-/**
- * 사용자 아바타 URL 생성
- */
+// 사용자 아바타 URL 생성
 export function getUserAvatarUrl(user: DiscordUser): string {
     if (!user.avatar) {
         // 아바타가 없는 경우 기본 아바타 URL 반환
@@ -170,9 +150,7 @@ export function getUserAvatarUrl(user: DiscordUser): string {
     return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
 }
 
-/**
- * 서버 배경색 생성 (랜덤)
- */
+// 서버 배경색 생성 (랜덤)
 export function getServerBackgroundColor(serverId: string): string {
     const colors = ["bg-blue-500", "bg-purple-500", "bg-green-500", "bg-red-500", "bg-yellow-500", "bg-pink-500", "bg-indigo-500", "bg-teal-500"];
 

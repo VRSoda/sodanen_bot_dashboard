@@ -3,12 +3,9 @@ import { Box, Typography, CircularProgress, Container, Select, MenuItem, FormCon
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, useParams, Outlet, useLocation } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import SettingsIcon from "@mui/icons-material/Settings";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ServerIcon from "@mui/icons-material/Dns";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import CampaignIcon from "@mui/icons-material/Campaign";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3001";
 

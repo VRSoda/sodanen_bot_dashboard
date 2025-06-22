@@ -38,8 +38,6 @@ class Guild extends Model<GuildAttributes, GuildCreationAttributes> implements G
     public translationTargetLang!: string;
     public translationExcludedChannels!: string | null;
     public isActive!: boolean;
-
-    // 타임스탬프
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }

@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { AuthProvider } from "./contexts/AuthContext";
 import { SocketProvider } from "./contexts/SocketContext";
-import background from "./assets/background.png";
 
 // Pages
 import Home from "./pages/Home";
@@ -21,18 +20,18 @@ const lightTheme = createTheme({
     palette: {
         mode: "light",
         primary: {
-            main: "#00A9FF", // 주 색상 (하늘색)
+            main: "#00A9FF",
         },
         secondary: {
-            main: "#FF6B6B", // 보조 색상 (포인트)
+            main: "#FF6B6B",
         },
         background: {
-            default: "#F0F8FF", // 기본 배경 (매우 연한 하늘색)
-            paper: "#FFFFFF", // 카드 배경 (흰색)
+            default: "#F0F8FF",
+            paper: "#FFFFFF",
         },
         text: {
-            primary: "#2C3E50", // 주 텍스트 (어두운 회색)
-            secondary: "#576574", // 보조 텍스트 (회색)
+            primary: "#2C3E50",
+            secondary: "#576574",
         },
     },
     typography: {

@@ -248,13 +248,10 @@ router.get("/services/status", async (req, res) => {
         const uptimeKumaUrl = process.env.UPTIME_KUMA_STATUS_URL;
         if (uptimeKumaUrl) {
             try {
-                // 이 부분은 실제 Uptime Kuma API 응답에 맞게 조정 필요
-                // const response = await fetch(uptimeKumaUrl);
-                // const data = await response.json();
                 services.push({
                     id: 3,
                     name: "Uptime Kuma",
-                    status: "online", // Placeholder
+                    status: "online",
                 });
             } catch (error) {
                 services.push({
@@ -271,7 +268,7 @@ router.get("/services/status", async (req, res) => {
     }
 });
 
-// 공지사항 CRUD
+// 공지사항
 router.get("/announcements", async (req, res) => {
     try {
         const announcements = await Announcement.findAll({
@@ -386,7 +383,7 @@ router.post("/settings/:guildId", async (req, res) => {
         const { guildId } = req.params;
         const dataToSave = { ...req.body };
 
-        // DB 저장을 위해 배열을 JSON 문자열로 확실하게 변환
+        // DB 저장을 위해 배열을 JSON 문자열로 변환
         if (Array.isArray(dataToSave.translationExcludedChannels)) {
             dataToSave.translationExcludedChannels = JSON.stringify(dataToSave.translationExcludedChannels);
         }

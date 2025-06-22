@@ -15,7 +15,6 @@ import authRoutes from "./routes/auth";
 import apiRoutes from "./routes/api";
 import { initializeDatabase } from "./src/database/connection";
 import "./src/database/models"; // 모델들 임포트
-// .env 파일 로드
 dotenv.config();
 
 // Express.Request 인터페이스 확장
@@ -75,7 +74,7 @@ passport.use(
         {
             clientID: process.env.DISCORD_CLIENT_ID!,
             clientSecret: process.env.DISCORD_CLIENT_SECRET!,
-            callbackURL: "/auth/discord/callback", // 전체 URL 대신 상대 경로 사용
+            callbackURL: "/auth/discord/callback",
             scope: ["identify", "guilds"],
         },
         async (accessToken, refreshToken, profile, done) => {

@@ -9,5 +9,5 @@ export interface Guild {
 }
 
 export interface UserData extends User {
-    // 추가로 필요한 필드가 있다면 여기에 작성
+    // 추가로 필요한 필드가 있다면..
 }

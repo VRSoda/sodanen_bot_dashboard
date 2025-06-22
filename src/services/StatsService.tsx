@@ -1,4 +1,4 @@
-// 클라이언트용 StatsService - API 호출을 통해서만 데이터 접근
+// 클라이언트용 StatsService - API 호출을 통해서만 데이터 접근 가능
 import apiClient from "./apiService";
 
 export const getGuildStats = async (guildId: string) => {
