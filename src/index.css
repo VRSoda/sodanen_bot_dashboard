@@ -1,7 +1,236 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-*::-webkit-scrollbar {
-    display: none;
+    /* 하늘색 테마 색상 팔레트 */
+    --sky-primary: #87ceeb;
+    --sky-primary-light: #b0e0e6;
+    --sky-primary-dark: #4682b4;
+    --sky-secondary: #00bfff;
+    --sky-accent: #1e90ff;
+    --sky-background: #f0f8ff;
+    --sky-surface: #ffffff;
+    --sky-text-primary: #1a1a1a;
+    --sky-text-secondary: #4a5568;
+    --sky-border: #e2e8f0;
+    --sky-shadow: rgba(135, 206, 235, 0.1);
+    --sky-gradient: linear-gradient(135deg, #87ceeb, #00bfff);
+
+    color: var(--sky-text-primary);
+    background-color: var(--sky-background);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+    color: var(--sky-text-primary);
+}
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* 하늘색 테마 스크롤바 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e6f3ff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--sky-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sky-primary-dark);
+}
+
+/* Animation classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Card hover effects */
+.hover-lift {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px var(--sky-shadow);
+}
+
+/* Status indicators */
+.status-online {
+    color: var(--sky-accent);
+}
+
+.status-offline {
+    color: #a0aec0;
+}
+
+.status-away {
+    color: #f6ad55;
+}
+
+.status-busy {
+    color: #fc8181;
+}
+
+/* Custom loading spinner */
+.loading-spinner {
+    border: 3px solid rgba(135, 206, 235, 0.3);
+    border-radius: 50%;
+    border-top: 3px solid var(--sky-primary);
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Utility classes */
+.text-gradient {
+    background: var(--sky-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--sky-border);
+    box-shadow: 0 4px 6px var(--sky-shadow);
+}
+
+/* 반응형 유틸리티 클래스 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+}
+
+/* 하늘색 버튼 스타일 */
+.sky-button {
+    background: var(--sky-gradient);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px var(--sky-shadow);
+}
+
+.sky-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--sky-shadow);
+}
+
+.sky-button:active {
+    transform: translateY(0);
+}
+
+/* 하늘색 카드 스타일 */
+.sky-card {
+    background: var(--sky-surface);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px var(--sky-shadow);
+    border: 1px solid var(--sky-border);
+    transition: all 0.3s ease;
+    color: var(--sky-text-primary);
+}
+
+.sky-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px var(--sky-shadow);
+}
+
+/* 전역 텍스트 색상 강제 적용 */
+p,
+span,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--sky-text-primary) !important;
+}
+
+/* Material-UI 텍스트 색상 오버라이드 */
+.MuiTypography-root {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiTypography-body1,
+.MuiTypography-body2 {
+    color: var(--sky-text-secondary) !important;
 }

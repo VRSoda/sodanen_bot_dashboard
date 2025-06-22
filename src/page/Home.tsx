@@ -1,34 +1,264 @@
 import React from "react";
+import { Box, Container, Typography, Paper, Avatar, Button, Card, CardContent, Fade, Grid, Stack } from "@mui/material";
+import { PlayArrow as PlayIcon, People as PeopleIcon, Settings as SettingsIcon, Launch as LaunchIcon, CheckCircle as CheckIcon } from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
 import ProfileImage from "../image/Bot_Logo.png";
+import { useAuth } from "../contexts/AuthContext";
+import "./Home.css";
+
+// 스타일드 컴포넌트
+const MainSection = styled(Box)(({ theme }) => ({
+    textAlign: "center",
+    padding: theme.spacing(8, 0),
+    backgroundColor: "#fafafa",
+    borderRadius: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+}));
+
+const FeatureCard = styled(Card)(({ theme }) => ({
+    height: "100%",
+    border: "1px solid #e0e0e0",
+    borderRadius: theme.spacing(2),
+    transition: "all 0.2s ease",
+    "&:hover": {
+        borderColor: theme.palette.primary.main,
+        transform: "translateY(-2px)",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    },
+}));
+
+const StatItem = styled(Box)(({ theme }) => ({
+    textAlign: "center",
+    padding: theme.spacing(2),
+}));
+
+const SimpleButton = styled(Button)(({ theme }) => ({
+    borderRadius: theme.spacing(1),
+    textTransform: "none",
+    fontWeight: 500,
+    padding: theme.spacing(1, 3),
+}));
 
 const Home: React.FC = () => {
+    const { user, isAuthenticated } = useAuth();
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => setIsVisible(true), 100);
+        return () => clearTimeout(timer);
+    }, []);
+
+    const features = [
+        {
+            icon: <PlayIcon sx={{ fontSize: 32, color: "#1976d2" }} />,
+            title: "음악 재생",
+            description: "고품질 음악 스트리밍과 플레이리스트 관리",
+        },
+        {
+            icon: <SettingsIcon sx={{ fontSize: 32, color: "#ed6c02" }} />,
+            title: "서버 관리",
+            description: "효율적인 Discord 서버 관리 도구",
+        },
+        {
+            icon: <PeopleIcon sx={{ fontSize: 32, color: "#2e7d32" }} />,
+            title: "커뮤니티",
+            description: "활발한 사용자 커뮤니티와 지원",
+        },
+    ];
+
+    const stats = [
+        { number: "10,000+", label: "서버" },
+        { number: "500K+", label: "사용자" },
+        { number: "99.9%", label: "가동률" },
+        { number: "24/7", label: "지원" },
+    ];
+
+    const handleLogin = () => {
+        // Discord OAuth 로그인 URL로 리다이렉트
+        window.location.href = "http://localhost:3001/auth/discord";
+    };
+
+    const handleLogout = () => {
+        // 로그아웃 API 호출
+        window.location.href = "http://localhost:3001/auth/logout";
+    };
+
     return (
-        <main className="flex-grow flex flex-col items-center py-12 px-6 rounded-3xl mt-5 mb-5 transition-all duration-500 transform translate-y-5 opacity-0 animate-slide-up bg-[url('./img/bg-pattern.svg')] bg-cover relative animated-background">
-            <div className="relative z-10 flex flex-col items-center w-full">
-                <header className="w-full max-w-md bg-white text-blue-600 py-4 rounded-full shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 hover:scale-105">
-                    <p className="text-lg font-semibold text-center tracking-wide">✨ 새로운 기능 & 업데이트를 확인하세요! ✨</p>
-                </header>
-                <div className="flex flex-col md:flex-row justify-center items-center mt-12 w-full">
-                    <img
-                        src={ProfileImage}
-                        alt="Profile"
-                        className="rounded-full shadow-md w-48 h-48 md:w-56 md:h-56 object-cover object-center transition-all duration-300 hover:scale-105"
-                    />
-                    <article className="text-gray-700 mt-8 md:mt-0 md:ml-12 text-center md:text-left">
-                        <h2 className="text-3xl font-extrabold mb-4 text-gray-800">🛠 홈페이지 제작 중</h2>
-                        <p className="text-lg leading-relaxed mb-6">더 멋진 모습으로 찾아뵙겠습니다!</p>
-                        <a href="https://discord.gg/SdDqbgdm" target="_blank" rel="noopener noreferrer">
-                            <button
-                                type="button"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+            <Fade in={isVisible} timeout={600}>
+                <Box>
+                    {/* 메인 섹션 */}
+                    <MainSection>
+                        <Avatar
+                            src={ProfileImage}
+                            alt="Sodanen Bot"
+                            sx={{
+                                width: 80,
+                                height: 80,
+                                mx: "auto",
+                                mb: 3,
+                                border: "3px solid #1976d2",
+                            }}
+                        />
+                        <Typography
+                            variant="h3"
+                            component="h1"
+                            gutterBottom
+                            sx={{
+                                fontWeight: 600,
+                                color: "#1a1a1a",
+                                mb: 2,
+                            }}
+                        >
+                            Sodanen Bot
+                        </Typography>
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                color: "#666",
+                                mb: 4,
+                                maxWidth: 500,
+                                mx: "auto",
+                            }}
+                        >
+                            Discord 서버를 위한 심플하고 강력한 다목적 봇
+                        </Typography>
+                        {!isAuthenticated ? (
+                            <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="center" alignItems="center">
+                                <SimpleButton variant="contained" size="large" onClick={handleLogin} startIcon={<LaunchIcon />}>
+                                    Discord로 로그인
+                                </SimpleButton>
+                                <SimpleButton variant="outlined" size="large" onClick={() => window.open("/commands", "_self")}>
+                                    명령어 보기
+                                </SimpleButton>
+                            </Stack>
+                        ) : (
+                            <div className="user-info">
+                                <p>안녕하세요, {user?.username}님!</p>
+                                <button className="logout-button" onClick={handleLogout}>
+                                    로그아웃
+                                </button>
+                            </div>
+                        )}
+                    </MainSection>
+
+                    {/* 통계 */}
+                    <Box sx={{ mb: 6 }}>
+                        <Grid container spacing={0}>
+                            {stats.map((stat, index) => (
+                                <Grid item xs={6} md={3} key={index}>
+                                    <StatItem>
+                                        <Typography
+                                            variant="h4"
+                                            sx={{
+                                                fontWeight: 700,
+                                                color: "#1976d2",
+                                                mb: 0.5,
+                                            }}
+                                        >
+                                            {stat.number}
+                                        </Typography>
+                                        <Typography variant="body2" sx={{ color: "#666" }}>
+                                            {stat.label}
+                                        </Typography>
+                                    </StatItem>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Box>
+
+                    {/* 기능 섹션 */}
+                    <Box sx={{ mb: 6 }}>
+                        <Typography
+                            variant="h4"
+                            component="h2"
+                            textAlign="center"
+                            gutterBottom
+                            sx={{
+                                fontWeight: 600,
+                                color: "#1a1a1a",
+                                mb: 4,
+                            }}
+                        >
+                            주요 기능
+                        </Typography>
+                        <Grid container spacing={3}>
+                            {features.map((feature, index) => (
+                                <Grid item xs={12} md={4} key={index}>
+                                    <FeatureCard elevation={0}>
+                                        <CardContent sx={{ p: 3, textAlign: "center" }}>
+                                            <Box sx={{ mb: 2 }}>{feature.icon}</Box>
+                                            <Typography
+                                                variant="h6"
+                                                component="h3"
+                                                gutterBottom
+                                                sx={{
+                                                    fontWeight: 600,
+                                                    color: "#1a1a1a",
+                                                }}
+                                            >
+                                                {feature.title}
+                                            </Typography>
+                                            <Typography
+                                                variant="body2"
+                                                sx={{
+                                                    color: "#666",
+                                                    lineHeight: 1.6,
+                                                }}
+                                            >
+                                                {feature.description}
+                                            </Typography>
+                                        </CardContent>
+                                    </FeatureCard>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Box>
+
+                    {/* 상태 섹션 */}
+                    <Paper
+                        elevation={0}
+                        sx={{
+                            p: 4,
+                            borderRadius: 2,
+                            backgroundColor: "#f0f7ff",
+                            border: "1px solid #e3f2fd",
+                            textAlign: "center",
+                        }}
+                    >
+                        <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{ mb: 2 }}>
+                            <CheckIcon sx={{ color: "#2e7d32", fontSize: 20 }} />
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    fontWeight: 600,
+                                    color: "#1a1a1a",
+                                }}
                             >
-                                디스코드 초대
-                            </button>
-                        </a>
-                    </article>
-                </div>
-            </div>
-        </main>
+                                서비스 정상 운영 중
+                            </Typography>
+                        </Stack>
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                color: "#666",
+                                mb: 3,
+                            }}
+                        >
+                            24시간 안정적인 서비스를 제공하고 있습니다
+                        </Typography>
+                        <Stack direction={{ xs: "column", sm: "row" }} spacing={2} justifyContent="center">
+                            <SimpleButton variant="outlined" size="small" onClick={() => window.open("/status", "_self")}>
+                                서비스 상태
+                            </SimpleButton>
+                            <SimpleButton variant="outlined" size="small" onClick={() => window.open("/announcements", "_self")}>
+                                공지사항
+                            </SimpleButton>
+                        </Stack>
+                    </Paper>
+                </Box>
+            </Fade>
+        </Container>
     );
 };
 

@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+    mariadb:
+        image: mariadb:11.1
+        container_name: sodanen_bot_mariadb
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: 1234
+            MYSQL_DATABASE: sodanen_bot
+            TZ: Asia/Seoul
+        ports:
+            - "3306:3306"
+        volumes:
+            - mariadb_data:/var/lib/mysql
+            - ./docker/mariadb/init:/docker-entrypoint-initdb.d
+            - ./docker/mariadb/config:/etc/mysql/conf.d
+        networks:
+            - sodanen_network
+
+    # 선택사항: phpMyAdmin (데이터베이스 관리용)
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: sodanen_bot_phpmyadmin
+        restart: unless-stopped
+        environment:
+            PMA_HOST: mariadb
+            PMA_PORT: 3306
+            MYSQL_ROOT_PASSWORD: 1234
+        ports:
+            - "8080:80"
+        depends_on:
+            - mariadb
+        networks:
+            - sodanen_network
+
+volumes:
+    mariadb_data:
+        driver: local
+
+networks:
+    sodanen_network:
+        driver: bridge

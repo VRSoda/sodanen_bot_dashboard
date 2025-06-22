@@ -1,68 +1,57 @@
-import React, { useRef, useEffect, useState } from "react";
-import LoggedInDashboard from "./LoggedInDashboard"; // LoggedInDashboard 경로 업데이트
+import React, { useEffect, useState } from "react";
+import { Box, CircularProgress, Typography } from "@mui/material";
+import LoggedInDashboard from "./LoggedInDashboard";
+import { UserData } from "../types";
+import apiClient from "../services/apiService";
 
 const Dashboard: React.FC = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [userData, setUserData] = useState<UserData | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target?.classList.add("animate-fade-in", "animate-slide-up");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            {
-                threshold: 0.1,
-            }
-        );
-
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
-
-        return () => {
-            if (containerRef.current) {
-                observer.unobserve(containerRef.current);
+        const fetchUserData = async () => {
+            try {
+                const response = await apiClient.get("/auth/user");
+                setUserData(response.data);
+            } catch (error) {
+                console.error("사용자 데이터 로드 오류:", error);
+                setError("사용자 정보를 가져올 수 없습니다. 다시 로그인해주세요.");
+            } finally {
+                setLoading(false);
             }
         };
+
+        fetchUserData();
     }, []);
 
-    const handleLogin = () => {
-        // 실제 로그인 로직
-        // setIsLoggedIn(true) 호출
-        setIsLoggedIn(true);
-    };
+    if (loading) {
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "50vh" }}>
+                <Box sx={{ textAlign: "center" }}>
+                    <CircularProgress size={60} thickness={4} />
+                    <Typography variant="h6" sx={{ mt: 2, color: "text.secondary" }}>
+                        사용자 정보를 불러오는 중...
+                    </Typography>
+                </Box>
+            </Box>
+        );
+    }
+
+    if (error || !userData) {
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "50vh" }}>
+                <Typography variant="h6" color="error">
+                    {error || "사용자 정보를 찾을 수 없습니다."}
+                </Typography>
+            </Box>
+        );
+    }
 
     return (
-        <div className="bg-gradient-to-br to-blue-50 h-screen">
-            {isLoggedIn ? (
-                <LoggedInDashboard />
-            ) : (
-                <div className="flex items-center justify-center min-h-screen">
-                    <div
-                        ref={containerRef}
-                        className="bg-white shadow-xl rounded-3xl p-12 text-center transform -translate-y-10 opacity-0 transition-all duration-700 w-full max-w-md"
-                    >
-                        <div className="mb-8">
-                            <img src="../image/Profile_Sodanen.jpg" alt="Discord Bot" className="mx-auto rounded-full mb-4 shadow-md" />
-                            <h1 className="text-3xl font-extrabold text-blue-800 mb-2">디스코드로 시작하기</h1>
-                            <p className="text-gray-700 mb-6">디스코드 계정으로 로그인하여 봇을 사용해 보세요.</p>
-                        </div>
-                        <button
-                            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            onClick={handleLogin}
-                        >
-                            <i className="fab fa-discord mr-2"></i> 디스코드 로그인
-                        </button>
-                        <div className="mt-6 text-sm text-gray-500">디스코드 계정이 필요합니다.</div>
-                    </div>
-                </div>
-            )}
-        </div>
+        <Box>
+            <LoggedInDashboard userData={userData} />
+        </Box>
     );
 };
 

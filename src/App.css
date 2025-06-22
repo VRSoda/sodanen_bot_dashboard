@@ -1,17 +1,284 @@
-.loader {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 2s linear infinite;
+/* Material-UI 전용 스타일 파일 */
+
+/* 전역 스타일 - 모든 여백 제거 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
+*::-webkit-scrollbar {
+    display: none;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+    color: var(--sky-text-primary);
+}
+
+#root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Material-UI 커스텀 스타일 */
+.MuiCssBaseline-root {
+    color-scheme: light;
+}
+
+/* 추가적인 Material-UI 컴포넌트 스타일링 */
+.MuiCard-root {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid var(--sky-border) !important;
+    box-shadow: 0 2px 8px var(--sky-shadow) !important;
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiCard-root:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px var(--sky-shadow) !important;
+}
+
+.MuiButton-root {
+    text-transform: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.MuiButton-contained {
+    background: var(--sky-gradient) !important;
+    box-shadow: 0 2px 4px var(--sky-shadow) !important;
+    color: white !important;
+}
+
+.MuiButton-contained:hover {
+    background: linear-gradient(135deg, var(--sky-primary-dark), var(--sky-secondary)) !important;
+    box-shadow: 0 4px 8px var(--sky-shadow) !important;
+    transform: translateY(-2px);
+}
+
+.MuiButton-outlined {
+    border-color: var(--sky-primary) !important;
+    color: var(--sky-primary) !important;
+}
+
+.MuiButton-outlined:hover {
+    background: rgba(135, 206, 235, 0.1) !important;
+    border-color: var(--sky-primary-dark) !important;
+}
+
+.MuiPaper-root {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--sky-border) !important;
+    box-shadow: 0 2px 8px var(--sky-shadow) !important;
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiAppBar-root {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--sky-border) !important;
+    box-shadow: 0 2px 8px var(--sky-shadow) !important;
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiDrawer-paper {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-right: 1px solid var(--sky-border) !important;
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiListItem-root {
+    border-radius: 8px;
+    margin: 4px 8px;
+    transition: all 0.2s ease;
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiListItem-root:hover {
+    background: rgba(135, 206, 235, 0.1) !important;
+}
+
+.MuiListItem-root.Mui-selected {
+    background: rgba(135, 206, 235, 0.2) !important;
+    color: var(--sky-primary) !important;
+}
+
+.MuiListItemIcon-root {
+    color: var(--sky-primary) !important;
+}
+
+.MuiListItemText-primary {
+    color: var(--sky-text-primary) !important;
+    font-weight: 500;
+}
+
+.MuiListItemText-secondary {
+    color: var(--sky-text-secondary) !important;
+}
+
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4,
+.MuiTypography-h5,
+.MuiTypography-h6 {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiTypography-body1,
+.MuiTypography-body2 {
+    color: var(--sky-text-secondary) !important;
+}
+
+.MuiTypography-subtitle1,
+.MuiTypography-subtitle2 {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiChip-root {
+    background: rgba(135, 206, 235, 0.1) !important;
+    color: var(--sky-primary) !important;
+    border: 1px solid var(--sky-primary) !important;
+}
+
+.MuiLinearProgress-root {
+    background-color: rgba(135, 206, 235, 0.2) !important;
+}
+
+.MuiLinearProgress-bar {
+    background-color: var(--sky-primary) !important;
+}
+
+.MuiCircularProgress-root {
+    color: var(--sky-primary) !important;
+}
+
+.MuiSkeleton-root {
+    background-color: rgba(135, 206, 235, 0.1) !important;
+}
+
+.MuiMenu-paper {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--sky-border) !important;
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiMenuItem-root {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiMenuItem-root:hover {
+    background: rgba(135, 206, 235, 0.1) !important;
+}
+
+.MuiContainer-root {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiBox-root {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiGrid-root {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiSelect-root {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiInputLabel-root {
+    color: var(--sky-text-secondary) !important;
+}
+
+.MuiOutlinedInput-root {
+    color: var(--sky-text-primary) !important;
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: var(--sky-border) !important;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: var(--sky-primary) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--sky-primary) !important;
+}
+
+.MuiTab-root {
+    color: var(--sky-text-secondary) !important;
+}
+
+.MuiTab-root.Mui-selected {
+    color: var(--sky-primary) !important;
+}
+
+.MuiTabs-indicator {
+    background-color: var(--sky-primary) !important;
+}
+
+/* 반응형 Material-UI 스타일 */
+@media (max-width: 768px) {
+    .MuiCard-root {
+        margin: 8px;
     }
-    100% {
-        transform: rotate(360deg);
+
+    .MuiButton-root {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .MuiTypography-h1 {
+        font-size: 2rem !important;
+    }
+
+    .MuiTypography-h2 {
+        font-size: 1.75rem !important;
+    }
+
+    .MuiTypography-h3 {
+        font-size: 1.5rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .MuiCard-root {
+        margin: 4px;
+        padding: 16px;
+    }
+
+    .MuiButton-root {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .MuiTypography-h1 {
+        font-size: 1.75rem !important;
+    }
+
+    .MuiTypography-h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .MuiTypography-h3 {
+        font-size: 1.25rem !important;
     }
 }
